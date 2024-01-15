@@ -1,0 +1,68 @@
+<div class="booking">
+    <h1 class="form-title">Book your appointment</h1>
+    <form [formGroup]="formGroup" (submit)="submit()">
+        <div class="barber-booking-form-main">    
+            <div>
+                <input type="text" id="firstName" placeholder="First Name" required [formControl]="formGroup.controls.firstName"/>
+                <div class="error" *ngIf="showErrors && formGroup.controls.firstName.errors?.['required']">Please enter your first name</div>
+            </div>
+            
+            <div>
+                <input type="text" id="lastName" placeholder="Last Name" required [formControl]="formGroup.controls.lastName"/>
+                <div class="error" *ngIf="showErrors && formGroup.controls.lastName.errors?.['required']">Please enter your last name</div>
+            </div>
+            
+            <div>
+                <input type="email" id="email" placeholder="Email" required [formControl]="formGroup.controls.email"/>
+                <div class="error" *ngIf="showErrors && formGroup.controls.email.errors?.['required']">Please enter an email</div>
+                <div class="error" *ngIf="showErrors && formGroup.controls.email.errors?.['email']">Please enter a valid email</div>
+            </div>
+
+            <div>
+                <input type="text" id="contactNumber" maxlength="9" minlength="9" placeholder="Contact Number" required [formControl]="formGroup.controls.contactNumber" pattern="^0[\d+]{8}"/>
+                <div class="error" *ngIf="showErrors && formGroup.controls.contactNumber.errors?.['required']">Please enter your contact number</div>
+                <div class="error" *ngIf="showErrors && formGroup.controls.contactNumber.errors?.['pattern']">Please enter a valid contact number</div>
+                <div class="error" *ngIf="showErrors && formGroup.controls.contactNumber.errors?.['minlength']">Please enter a 9 digit number</div>
+            </div>            
+        
+            <div>
+                <select id="barber" required [formControl]="formGroup.controls.barber" (change)="updateTimeEntries()">
+                    <option value="0">Select Barber</option>
+                    <option *ngFor="let barber of barbers | keyvalue" [value]="barber.value.id">
+                        {{ barber.value.firstName }} {{ barber.value.lastName }}
+                    </option>
+                </select>
+                <div class="error" *ngIf="showErrors && formGroup.controls.barber.value == '0';">Please select a barber</div>
+            </div>
+
+            <div>
+                <select id="service" required [formControl]="formGroup.controls.service" (change)="changeService()">
+                    <option value="0">Select Service</option>
+                    <option *ngFor="let service of services | keyvalue" [value]="service.value.id">
+                        {{ service.value.name }}       
+                    </option>
+                </select>
+                <div class="error" *ngIf="showErrors && formGroup.controls.service.value == '0';">Please select a service</div>
+            </div>
+        
+            <div>
+                <input type="date" id="date" placeholder="Select Date" required [formControl]="formGroup.controls.date" (change)="updateTimeEntries()"/>
+                <div class="error" *ngIf="showErrors && formGroup.controls.date.value === ''">Please enter a date</div>
+            </div>
+        
+            <div>                
+                <select id="time" required [formControl]="formGroup.controls.time">
+                    <option value="0">Select Time</option>
+                    <option *ngFor="let time of timeEntries" [value]="time.value">
+                        {{ time.label }}       
+                    </option>
+                </select>
+                <div class="error" *ngIf="showErrors && formGroup.controls.time.value == '0';">Please select a time</div>
+            </div>
+        </div>
+        <div class="barber-booking-form-price">
+            <input type="text" id="price" [formControl]="formGroup.controls.price" placeholder="Select any service"/>
+            <button type="submit">Book Appointment</button>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,43 @@
+.booking-success-container {
+    display: inline-block;
+    position: relative;
+    top: 50%;
+    left: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transform: translateX(-50%) translateY(50%);
+
+    h1 {
+        font-family: 'Squada One';
+        font-size: 37px;
+        font-weight: 500;
+        letter-spacing: 1.8px;
+        text-align: center;
+    }
+
+    .image {
+        margin: 20px 0;
+
+        img {
+            width: 100%;
+            max-width: 100%;
+            display: block;
+            margin: 0 auto;
+        }
+    }
+}
+
+
+@media only screen and (max-width: 500px) {
+    .booking-success-container {
+        position: initial;
+        transform: none;
+    }
+}
+
+@media only screen and (max-width: 380px) {
+    .booking-success-container {
+        text-align: center;
+    }
+}
